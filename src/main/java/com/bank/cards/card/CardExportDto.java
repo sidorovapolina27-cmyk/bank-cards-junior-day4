@@ -1,5 +1,8 @@
 package com.bank.cards.card;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,12 +23,26 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class CardExportDto {
-
+    @JsonProperty("pan")
     private final String pan;
+
+    @JsonProperty("card_holder_name")
     private final String cardHolderName;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @JsonProperty("valid_from")
     private final LocalDate validFrom;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @JsonProperty("valid_to")
     private final LocalDate validTo;
+
+    @JsonProperty("status")
     private final CardStatus status;
+
+    @JsonProperty("product_name")
     private final String productName;
+
+    @JsonIgnore
     private final int internalRiskScore;
 }

@@ -42,7 +42,8 @@ public class CardSeedLogger implements ApplicationRunner {
                     card.getStatus(),
                     card.getValidFrom(),
                     card.getValidTo(),
-                    card.getProductName()
+                    card.getProductName(),
+                    card.getCreatedAt() == null ? null : card.getCreatedAt().toLocalDate()
             );
             log.info("Сид-карта: {}", dto);
         }
