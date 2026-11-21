@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-tables
+      author: card-display-team
+      changes:
+        - sqlFile:
+            path: 01-schema.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 002-seed-data
+      author: card-display-team
+      changes:
+        - sqlFile:
+            path: 02-seed.sql
+            relativeToChangelogFile: true
