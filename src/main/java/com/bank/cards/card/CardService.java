@@ -68,6 +68,19 @@ public class CardService {
         return cardMapper.toDtoList(cardRepository.findAllByOrderByCreatedAtDescIdDesc());
     }
 
+    public CardExportDto getCardExport(long id) {
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new CardNotFoundException(id));
+        return cardMapper.toExportDto(card);
+    }
+
+    public List<CardShortDto> getCardShortsByClient(long clientId, CardStatus status) {
+        List<Card> cards = (status == null)
+                ? cardRepository.findByClientIdOrderByIdAsc(clientId)
+                : cardRepository.findByClientIdAndStatusOrderByIdAsc(clientId, status);
+        return cardMapper.toShortDtoList(cards);
+    }
+
     public CardDto createCard(CreateCardRequest request) {
         Card card = new Card();
         card.setClientId(request.getClientId());

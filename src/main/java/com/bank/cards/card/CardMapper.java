@@ -18,6 +18,7 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = ClientMapper.class)
 public interface CardMapper {
 
+    @Mapping(target = "createdDate", expression = "java(card.getCreatedAt() == null ? null : card.getCreatedAt().toLocalDate())")
     CardDto toDto(Card card);
 
     List<CardDto> toDtoList(List<Card> cards);
@@ -32,6 +33,15 @@ public interface CardMapper {
     @Mapping(target = "statusDisplayName", source = "status", qualifiedByName = "statusDisplayName")
     @Mapping(target = "validFromText", source = "validFrom", qualifiedByName = "validFromText")
     CardListItemDto toListItemDto(Card card);
+
+    @Mapping(target = "internalRiskScore", expression = "java(Math.abs(card.getPan().hashCode()) % 100)")
+    CardExportDto toExportDto(Card card);
+
+    @Mapping(target = "maskedPan", expression = "java(\"**** \" + card.getPan().substring(card.getPan().length() - 4))")
+    @Mapping(target = "statusDisplayName", source = "status", qualifiedByName = "statusDisplayName")
+    CardShortDto toShortDto(Card card);
+
+    List<CardShortDto> toShortDtoList(List<Card> cards);
 
     List<CardListItemDto> toListItemDtoList(List<Card> cards);
 

@@ -44,15 +44,21 @@ public class CardController {
     }
 
     @GetMapping("/api/clients/{clientId}/cards")
-    public List<CardDto> getClientCards(@PathVariable long clientId,
-                                        @RequestParam(required = false) CardStatus status) {
-        return cardService.getCardsByClient(clientId, status);
+    public List<CardShortDto> getClientCards(@PathVariable long clientId,
+                                             @RequestParam(required = false) CardStatus status) {
+        return cardService.getCardShortsByClient(clientId, status);
     }
 
     @GetMapping("/api/clients/{clientId}/cards-report")
     public ClientCardsReportDto getClientCardsReport(@PathVariable long clientId) {
         return cardService.getCardsReport(clientId);
     }
+
+    @GetMapping("/api/cards/{id}/export")
+    public CardExportDto getCardExport(@PathVariable long id) {
+        return cardService.getCardExport(id);
+    }
+
 
     @PostMapping("/api/cards")
     @ResponseStatus(HttpStatus.CREATED)

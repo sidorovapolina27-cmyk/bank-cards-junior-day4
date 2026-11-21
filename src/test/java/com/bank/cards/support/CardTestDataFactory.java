@@ -48,7 +48,8 @@ public final class CardTestDataFactory {
                 CardStatus.ACTIVE,
                 LocalDate.of(2024, 3, 1),
                 LocalDate.of(2029, 3, 1),
-                "Карта Классическая"
+                "Карта Классическая",
+                LocalDate.of(2024, 3, 1)
         );
     }
 
